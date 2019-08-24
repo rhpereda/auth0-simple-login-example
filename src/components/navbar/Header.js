@@ -10,19 +10,13 @@ import "./Header.css";
 const Header = () => {
   const { isAuthenticated, user, loginWithRedirect, logout } = useAuth0();
 
+  const logoutWithRedirect = () =>
+    logout({
+      returnTo: window.location.origin
+    });
+
   const getLoginButton = () => {
     return <a className="login" onClick={() => loginWithRedirect({})} >Iniciar sesión</a>;
-  }
-
-  const getProfileMenu = () => {
-    return <Dropdown>
-      <Dropdown.Toggle variant="danger" id="dropdown-basic">Hello {user.name}</Dropdown.Toggle>
-      <Dropdown.Menu>
-        <Link className="dropdown-item" to="/profile">Profile</Link>
-        <Dropdown.Divider />
-        <Dropdown.Item onClick={() => logout()}>Logout</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>;
   }
 
   const getTitle = () => {
@@ -30,7 +24,7 @@ const Header = () => {
   }
 
   const getMenu = () => {
-    return <Navbar bg="none" expand="lg" variant="dark">
+    return <Navbar bg="none" expand="md" variant="dark">
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
@@ -39,7 +33,7 @@ const Header = () => {
           <NavDropdown title={getTitle()} id="basic-nav-dropdown">
             <Link className="dropdown-item" to="/profile">Profile</Link>
             <NavDropdown.Divider />
-            <Dropdown.Item onClick={() => logout()}>Logout</Dropdown.Item>
+            <Dropdown.Item onClick={() => logoutWithRedirect()}>Logout</Dropdown.Item>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
@@ -48,14 +42,7 @@ const Header = () => {
 
   return (
     <div className="header">
-      <div className="leftSection col-xs-1">
-         <span className={"home link"}>
-          <Link to="/">
-            <img className="homeIcon" src={process.env.PUBLIC_URL + "/home.png"} alt="Home" title="Home"></img>
-          </Link>
-        </span>
-      </div>
-      <div className="rightSection col-xs-11">
+      <div className="rightSection col-xs-12">
         {!isAuthenticated ? getLoginButton() : getMenu()}
       </div>
     </div>
