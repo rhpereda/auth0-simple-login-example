@@ -25,10 +25,13 @@ const NavBar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const toggle = () => setIsOpen(!isOpen);
 
-  const logoutWithRedirect = () =>
-    logout({
-      returnTo: window.location.origin
-    });
+  const logoutWithRedirect = () => {
+    let returnToUrl = window.location.origin;
+    if (!window.location.origin.includes('localhost')) {
+      returnToUrl = "https://auth0.coding-solutions.com";
+    }
+    logout({ returnTo: returnToUrl });
+  }
 
   return (
     <div className="nav-container">
