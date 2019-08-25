@@ -1,38 +1,40 @@
 import React from "react";
-import Header from "./components/navbar/Header";
-import { useAuth0 } from "./react-auth0-wrapper";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Container } from "reactstrap";
+
+import PrivateRoute from "./components/PrivateRoute";
+import Loading from "./components/Loading";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
 import Profile from "./components/Profile";
+import { useAuth0 } from "./react-auth0-wrapper";
 import "./App.css";
 
-function App() {
+import initFontAwesome from "./utils/initFontAwesome";
+initFontAwesome();
+
+const App = () => {
   const { loading } = useAuth0();
 
   if (loading) {
-    return (
-      <div>Loading...</div>
-    );
+    return <Loading />;
   }
 
   return (
-    <div className="App">
-      <link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossOrigin="anonymous"
-      />
-      <BrowserRouter>
-        <header>
-          <Header />
-        </header>
-        <Switch>
-          <Route path="/" exact />
-          <Route path="/profile" component={Profile} />
-        </Switch>
-      </BrowserRouter>
-    </div>
+    <Router>
+      <div id="app" className="d-flex flex-column h-100">
+        <NavBar />
+        <Container className="flex-grow-1 mt-5">
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <PrivateRoute path="/profile" component={Profile} />
+          </Switch>
+        </Container>
+        <Footer />
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
