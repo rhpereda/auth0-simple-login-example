@@ -26,16 +26,12 @@ const NavBar = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   const logoutWithRedirect = () => {
-    let returnToUrl = window.location.origin;
-    if (!window.location.origin.includes('localhost')) {
-      returnToUrl = "https://auth0.coding-solutions.com";
-    }
-    logout({ returnTo: returnToUrl });
+    logout({ returnTo: window.location.origin });
   }
 
   return (
     <div className="nav-container">
-      <Navbar color="light" light expand="md">
+      <Navbar color="#bfbfbf" dark expand="md">
         <Container>
           <NavbarBrand className="logo" />
           <NavbarToggler onClick={toggle} />
@@ -50,7 +46,7 @@ const NavBar = () => {
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
                 <NavItem>
-                  <Button id="qsLoginBtn" color="primary" className="btn-margin" onClick={() => loginWithRedirect({})}>
+                  <Button id="qsLoginBtn" color="danger" className="btn-margin" onClick={() => loginWithRedirect({})}>
                     Log in
                   </Button>
                 </NavItem>
@@ -62,7 +58,7 @@ const NavBar = () => {
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem header>{user.name}</DropdownItem>
-                    <DropdownItem tag={RouterNavLink} to="/profile" className="dropdown-profile" activeClassName="router-link-exact-active">
+                    <DropdownItem tag={RouterNavLink} to="/profile" activeClassName="router-link-exact-active">
                       <FontAwesomeIcon icon="user" className="mr-3" /> Profile
                     </DropdownItem>
                     <DropdownItem id="qsLogoutBtn" onClick={() => logoutWithRedirect()}>
@@ -75,7 +71,7 @@ const NavBar = () => {
             {!isAuthenticated && (
               <Nav className="d-md-none" navbar>
                 <NavItem>
-                  <Button id="qsLoginBtn" color="primary" block onClick={() => loginWithRedirect({})}>
+                  <Button id="qsLoginBtn" color="danger" block onClick={() => loginWithRedirect({})}>
                     Log in
                   </Button>
                 </NavItem>

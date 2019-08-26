@@ -6,16 +6,44 @@
     background-size: cover;
 }
 
+footer {
+    background: #1b0088;
+    border-top: 2px solid #ed1650;
+    color: #bfbfbf;
+    padding: 0;
+}
+
 footer > .logo {
     margin: 0 auto;
 }
 
-.p-3 {
-    padding: 0;
+.nav-container {
+    border-bottom: 2px solid #ed1650;
 }
 
 .navbar {
-    padding: 0;
+    padding: 10px;
+    background: #1b0088;
+    color: #bfbfbf;
+}
+
+.nav-link {
+    color: #bfbfbf;
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: #bfbfbf;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.nav-item a {
+    color: #bfbfbf;
+    cursor: pointer;
+}
+
+.alignUnderUserIcon {
+    padding-left: 65px;
 }
 
 .next-steps .fa-link {
